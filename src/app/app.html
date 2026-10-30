@@ -1,0 +1,581 @@
+<div class="site-shell" [attr.data-theme]="activeTheme">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner page-width">
+      <a class="brand" href="#home" (click)="closeMenu()" aria-label="Pravin Gavali, home">
+        <span class="brand-mark">PG</span>
+        <span class="brand-copy">
+          <strong>Pravin Gavali</strong>
+          <span>.NET FULL STACK DEVELOPER</span>
+        </span>
+      </a>
+
+      <button
+        class="menu-toggle icon-button"
+        type="button"
+        [attr.aria-label]="menuOpen ? 'Close navigation menu' : 'Open navigation menu'"
+        [attr.aria-expanded]="menuOpen"
+        aria-controls="primary-navigation"
+        (click)="toggleMenu()"
+      >
+        <span [class.menu-open]="menuOpen"></span>
+        <span [class.menu-open]="menuOpen"></span>
+        <span [class.menu-open]="menuOpen"></span>
+      </button>
+
+      <nav id="primary-navigation" class="primary-navigation" [class.navigation-open]="menuOpen" aria-label="Main navigation">
+        @for (item of navItems; track item.id) {
+          <a [href]="'#' + item.id" (click)="closeMenu()">{{ item.label }}</a>
+        }
+        <a class="button button-small nav-cta" href="#contact" (click)="closeMenu()">Get In Touch</a>
+      </nav>
+
+      <div class="theme-control">
+        <button
+          class="theme-toggle icon-button"
+          type="button"
+          aria-label="Choose a color theme"
+          [attr.aria-expanded]="themePanelOpen"
+          aria-controls="theme-panel"
+          (click)="themePanelOpen = !themePanelOpen; closeMenu()"
+        >
+          <span aria-hidden="true">◐</span>
+        </button>
+        @if (themePanelOpen) {
+          <div class="theme-panel" id="theme-panel" aria-label="Color themes">
+            <div class="theme-panel-heading">
+              <div>
+                <strong>Choose a theme</strong>
+                <span>Currently {{ currentThemeName }}</span>
+              </div>
+              <button class="plain-close" type="button" aria-label="Close theme menu" (click)="themePanelOpen = false">×</button>
+            </div>
+            <div class="theme-options">
+              @for (theme of themes; track theme.id) {
+                <button
+                  class="theme-option"
+                  type="button"
+                  [class.theme-selected]="activeTheme === theme.id"
+                  [attr.aria-pressed]="activeTheme === theme.id"
+                  (click)="setTheme(theme.id)"
+                >
+                  <span class="theme-swatches" aria-hidden="true">
+                    @for (swatch of theme.swatches; track swatch) {
+                      <span [style.background]="swatch"></span>
+                    }
+                  </span>
+                  <span>{{ theme.name }}</span>
+                  @if (activeTheme === theme.id) {
+                    <span class="theme-check" aria-hidden="true">✓</span>
+                  }
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero-section section-anchor" id="home" aria-labelledby="hero-title">
+      <div class="hero-backdrop hero-dots" aria-hidden="true"></div>
+      <div class="hero-inner page-width">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> .NET FULL STACK DEVELOPER</p>
+          <h1 id="hero-title">Hi, I'm <span>Pravin Gavali</span></h1>
+          <h2>Building reliable software<br class="desktop-break" /> that solves real business problems.</h2>
+          <p class="hero-description">
+            I’m a .NET Full Stack Developer with {{ experienceDuration }} of experience building and enhancing business applications across diverse domains. I specialize in developing robust APIs, database-driven solutions, and responsive web interfaces using C#, ASP.NET Core, .Net, Azure DevOps, Angular, ReactJS, Oracle and SQL. Beyond development, I take ownership of team coordination by facilitating daily stand-ups, tracking sprint progress, managing blockers, and communicating with stakeholders to keep delivery on track.
+             I combine hands-on engineering with Agile team coordination to turn requirements into reliable, maintainable software.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#projects">View My Projects <span aria-hidden="true">↗</span></a>
+            <a
+              class="button"
+              href="https://drive.google.com/file/d/1pbou7IpRF8MGKq9_VnxmXDKeJjJC730S/view"
+              target="_blank"
+              rel="noreferrer"
+            >View CV <span aria-hidden="true">↗</span></a>
+            <a
+              class="button"
+              href="https://drive.google.com/uc?export=download&amp;id=1pbou7IpRF8MGKq9_VnxmXDKeJjJC730S"
+            >Download CV <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-socials" aria-label="Contact links">
+            @if (contact.linkedin) {
+              <a class="social-link" [href]="contact.linkedin" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+            }
+            @if (contact.github) {
+              <a class="social-link" [href]="contact.github" target="_blank" rel="noreferrer" aria-label="GitHub">GH</a>
+            } @else {
+              <span class="social-link social-placeholder" role="link" aria-disabled="true" aria-label="GitHub profile coming soon" title="GitHub profile coming soon">GH</span>
+            }
+            @if (contact.email) {
+              <a class="social-link" [href]="'mailto:' + contact.email" aria-label="Email">✉</a>
+            }
+            @if (contact.phone) {
+              <a class="social-link" [href]="'tel:' + contact.phone" aria-label="Phone">☎</a>
+            }
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+          <div class="hero-orbit orbit-two" aria-hidden="true"></div>
+          <div class="floating-code code-top" aria-hidden="true"><span>01</span> const developer = "Pravin";</div>
+          <div class="floating-code code-bottom" aria-hidden="true"><span>02</span> buildReliableApps();</div>
+          <div class="portrait-card">
+            <img class="portrait-photo" src="assets/pravin-gavali-portrait.jpg" alt="Pravin Gavali wearing a navy blazer and white shirt" width="840" height="1098" fetchpriority="high" decoding="async" />
+            <div class="portrait-tag"><span class="availability-dot"></span> Building with purpose</div>
+          </div>
+          <span class="hero-spark spark-one" aria-hidden="true">✳</span>
+          <span class="hero-spark spark-two" aria-hidden="true">✦</span>
+        </div>
+      </div>
+      <div class="highlights page-width">
+        <article class="highlight-card">
+          <span class="highlight-icon">◷</span>
+          <div><strong>{{ experienceDuration }}</strong><span>Professional Experience</span></div>
+        </article>
+        <article class="highlight-card">
+          <span class="highlight-icon">&lt;/&gt;</span>
+          <div><strong>Full Stack</strong><span>Development</span></div>
+        </article>
+        <article class="highlight-card">
+          <span class="highlight-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 3 9 5-9 5-9-5 9-5Z"></path>
+              <path d="m3 12 9 5 9-5M3 16l9 5 9-5"></path>
+            </svg>
+          </span>
+          <div><strong>Multi-Domain</strong><span>Enterprise Business Applications</span></div>
+        </article>
+        <article class="highlight-card">
+          <span class="highlight-icon">◎</span>
+          <div><strong>Agile Delivery</strong><span>Sprint &amp; Team Coordination</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-soft section-anchor" id="about" aria-labelledby="about-title">
+      <div class="page-width">
+        <div class="section-heading">
+          <p class="eyebrow">A LITTLE ABOUT ME</p>
+          <h2 id="about-title">About <span>Me</span></h2>
+          <p>Get to know me better</p>
+          <span class="section-rule"></span>
+        </div>
+        <div class="about-grid">
+          <article class="surface-card about-story">
+            <div class="card-icon">✦</div>
+            <h3>Who I Am</h3>
+            <p>
+              I'm a .NET Full Stack Developer with 4+ years of experience building, enhancing, and
+              maintaining enterprise web applications. I work across the full development
+              lifecycle—from understanding business requirements and developing APIs to integrating
+              databases, building user interfaces, and troubleshooting production issues.
+            </p>
+            <p>
+              My technical experience includes C#, .NET, ASP.NET Core, Web API, Angular, TypeScript,
+              Oracle, SQL Server, and Azure DevOps. I've contributed to applications across different
+              business domains, with a focus on reliable functionality, maintainable code, and
+              practical solutions.
+            </p>
+            <p>
+              Alongside development, I take responsibility for team coordination by facilitating
+              daily stand-ups, tracking sprint progress, following up on blockers, and communicating
+              with team members to support timely delivery. I combine hands-on engineering with a
+              collaborative, problem-solving mindset.
+            </p>
+            <div class="story-tags"><span>Problem solving</span><span>API development</span><span>Application maintenance</span></div>
+          </article>
+          <article class="surface-card profile-card">
+            <div class="card-icon">⌖</div>
+            <h3>Professional Information</h3>
+            <dl class="profile-list">
+              <div><dt>Name</dt><dd>Pravin Gavali</dd></div>
+              <div><dt>Role</dt><dd>.NET Full Stack Developer</dd></div>
+              <div><dt>Experience</dt><dd>{{ experienceDuration }}</dd></div>
+              <div><dt>Location</dt><dd>Pune</dd></div>
+              <div><dt>Email</dt><dd>{{ contact.email }}</dd></div>
+              <div><dt>Phone</dt><dd>{{ contact.phone }}</dd></div>
+              <div><dt>Core expertise</dt><dd>C#, .NET, .Net Core, Angular, ReactJS, RESTful APIs, Oracle, SQL Server, Azure DevOps, CI/CD Pipelines</dd></div>
+            </dl>
+          </article>
+        </div>
+        <div class="about-values">
+          <article>
+            <div class="about-value-heading">
+              <svg class="about-value-icon" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-12-2 14"></path></svg>
+              <span>01</span>
+            </div>
+            <strong>Full Stack Development</strong><p>Building and maintaining web applications using .NET, REST APIs, Angular, and relational databases.</p>
+          </article>
+          <article>
+            <div class="about-value-heading">
+              <svg class="about-value-icon" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"></path></svg>
+              <span>02</span>
+            </div>
+            <strong>Business Domain Experience</strong><p>Contributing to enterprise applications across healthcare, finance-related systems, and golf operations.</p>
+          </article>
+          <article>
+            <div class="about-value-heading">
+              <svg class="about-value-icon" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="14" rx="5"></rect><path d="M9 7V5a3 3 0 0 1 6 0v2m-3 5v9M4 5l3 3m13-3-3 3M3 12h4m10 0h4M3 19l4-3m10 0 4 3M7 11h10"></path></svg>
+              <span>03</span>
+            </div>
+            <strong>Problem Solving</strong><p>Investigating bugs, troubleshooting production issues, and delivering maintainable solutions.</p>
+          </article>
+          <article>
+            <div class="about-value-heading">
+              <svg class="about-value-icon" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"></circle><path d="M3 21v-2a6 6 0 0 1 12 0v2m1-17a3 3 0 0 1 0 6m2 5a5 5 0 0 1 3 4v2"></path></svg>
+              <span>04</span>
+            </div>
+            <strong>Agile Team Coordination</strong><p>Facilitating daily stand-ups, tracking sprint progress, following up on blockers, and supporting team delivery.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-anchor" id="skills" aria-labelledby="skills-title">
+      <div class="page-width">
+        <div class="section-heading">
+          <p class="eyebrow">MY TOOLKIT</p>
+          <h2 id="skills-title">Technologies I <span>Work With</span></h2>
+          <p>A set of technologies and tools I use to build modern web applications</p>
+          <span class="section-rule"></span>
+        </div>
+        <div class="skills-grid">
+          @for (group of skillGroups; track group.title; let index = $index) {
+            <article class="surface-card skill-card">
+              <div class="skill-card-heading">
+                <span class="skill-icon" [attr.data-index]="index">{{ group.icon }}</span>
+                <div><span class="skill-kicker">0{{ index + 1 }} / TOOLKIT</span><h3>{{ group.title }}</h3></div>
+              </div>
+              <div class="skill-tags">
+                @for (skill of group.skills; track skill) {
+                  <span class="technology-tag">{{ skill }}</span>
+                }
+              </div>
+            </article>
+          }
+        </div>
+        <p class="skills-note"><span aria-hidden="true">✳</span> Technologies are shown as areas of experience, not percentage-based proficiency scores.</p>
+      </div>
+    </section>
+
+    <section class="section section-soft section-anchor journey-section" id="experience" aria-labelledby="journey-title">
+      <div class="page-width">
+        <div class="section-heading">
+          <p class="eyebrow">WHERE I'VE BEEN</p>
+          <h2 id="journey-title">My <span>Journey</span></h2>
+          <p>Professional experience and education</p>
+          <span class="section-rule"></span>
+        </div>
+        <div class="experience-tabs" role="tablist" aria-label="Career history">
+          @for (tab of ['Current Experience', 'Previous Experience', 'Education']; track tab) {
+            <button
+              class="experience-tab"
+              [class.tab-active]="activeExperienceTab === tab"
+              type="button"
+              role="tab"
+              [attr.aria-selected]="activeExperienceTab === tab"
+              (click)="activeExperienceTab = tab"
+            >{{ tab }}</button>
+          }
+        </div>
+
+        @if (activeExperienceTab === 'Current Experience') {
+          <article class="experience-card surface-card">
+            <div class="experience-rail"><span class="timeline-dot"></span><span class="timeline-line"></span></div>
+            <div class="experience-content">
+              <div class="experience-topline">
+                <div>
+                  <p class="eyebrow">JANUARY 2025 — PRESENT</p>
+                  <h3>.NET Full Stack Developer</h3>
+                  <p class="company-name">T-SYSTEMS INDIA ICT PVT. LTD. <span>(Thy Grace Consultant)</span></p>
+                </div>
+                <span class="location-pill">Pune</span>
+              </div>
+              <div class="project-context">
+                <span class="context-icon">✚</span>
+                <div>
+                  <span>PROJECT</span>
+                  <strong>I Med One — Hospital Information System</strong>
+                  <p>{{ projects[0].description }}</p>
+                </div>
+              </div>
+              <h4>Responsibilities &amp; contributions</h4>
+              <ul class="responsibility-list">
+                @for (item of experienceBullets; track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+              <div class="experience-tech">
+                <span class="technology-tag">C#</span><span class="technology-tag">ASP.NET Core</span>
+                <span class="technology-tag">.NET</span><span class="technology-tag">AngularJS</span>
+                <span class="technology-tag">Angular 20</span><span class="technology-tag">Oracle 19c</span>
+                <span class="technology-tag">Agile Team Coordination</span><span class="technology-tag">Azure DevOps</span>
+              </div>
+            </div>
+          </article>
+        } @else if (activeExperienceTab === 'Previous Experience') {
+          @for (experience of previousExperience; track experience.company) {
+            <article class="experience-card surface-card">
+              <div class="experience-rail"><span class="timeline-dot"></span><span class="timeline-line"></span></div>
+              <div class="experience-content">
+                <div class="experience-topline">
+                  <div>
+                    <p class="eyebrow">{{ experience.dates }}</p>
+                    <h3>{{ experience.role }}</h3>
+                    <p class="company-name">{{ experience.company }}</p>
+                  </div>
+                </div>
+                <div class="project-context">
+                  <span class="context-icon">✦</span>
+                  <div><span>PROJECT</span><strong>{{ experience.project }}</strong></div>
+                </div>
+                <h4>Responsibilities &amp; contributions</h4>
+                <ul class="responsibility-list">
+                  @for (item of experience.responsibilities; track item) {
+                    <li>{{ item }}</li>
+                  }
+                </ul>
+                <div class="experience-tech">
+                  @for (technology of experience.technologies; track technology) {
+                    <span class="technology-tag">{{ technology }}</span>
+                  }
+                </div>
+              </div>
+            </article>
+          }
+        } @else {
+          <article class="experience-card surface-card">
+            <div class="experience-rail"><span class="timeline-dot"></span><span class="timeline-line"></span></div>
+            <div class="experience-content">
+              <div class="experience-topline">
+                <div>
+                  <p class="eyebrow">2019 — 2023</p>
+                  <h3>B.E. (Computer Science &amp; Engineering)</h3>
+                  <p class="company-name">Punya Shlok Ahilyabai Holkar Solapur University, Solapur</p>
+                </div>
+                <span class="location-pill">Score: 76.00</span>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section class="section section-anchor projects-section" id="projects" aria-labelledby="projects-title">
+      <div class="page-width">
+        <div class="section-heading">
+          <p class="eyebrow">SELECTED WORK</p>
+          <h2 id="projects-title">My <span>Portfolio</span></h2>
+          <p>Explore each project's purpose, technology stack, and my responsibilities</p>
+          <span class="section-rule"></span>
+        </div>
+        <div class="project-filters" role="group" aria-label="Filter projects by category">
+          @for (filter of filters; track filter) {
+            <button
+              type="button"
+              class="filter-button"
+              [class.filter-active]="activeFilter === filter"
+              [attr.aria-pressed]="activeFilter === filter"
+              (click)="activeFilter = filter"
+            >{{ filter }}</button>
+          }
+        </div>
+        <div class="projects-grid" aria-live="polite">
+          @for (project of visibleProjects; track project.title) {
+            <article class="project-card surface-card">
+              <div class="project-visual">
+                <img class="project-image" [src]="project.image" [alt]="project.imageAlt" loading="lazy" decoding="async" />
+                <span class="project-category">{{ project.category }}</span>
+              </div>
+              <div class="project-body">
+                <div class="project-title-row"><h3>{{ project.title }}</h3><span class="project-arrow" aria-hidden="true">↗</span></div>
+                <p>{{ project.description }}</p>
+                <div class="project-tags">
+                  @for (group of project.technologyGroups; track group.area) {
+                    @for (technology of group.technologies; track technology) {
+                      <span>{{ technology }}</span>
+                    }
+                  }
+                </div>
+                <button class="details-link" type="button" [attr.aria-label]="'View details for ' + project.title" (click)="openProject(project)">View Details <span aria-hidden="true">→</span></button>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section section-anchor" id="contact" aria-labelledby="contact-title">
+      <div class="contact-pattern" aria-hidden="true"></div>
+      <div class="page-width contact-inner">
+        <div class="section-heading section-heading-dark">
+          <p class="eyebrow">HAVE A PROJECT IN MIND?</p>
+          <h2 id="contact-title">Get In <span>Touch</span></h2>
+          <p>Let's work together</p>
+          <span class="section-rule"></span>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-copy">
+            <p class="contact-kicker">SAY HELLO</p>
+            <h3>Let's Connect</h3>
+            <p class="contact-intro">I'm open to discussing relevant opportunities, interesting projects, and technology. Feel free to reach out.</p>
+            <div class="contact-methods">
+              @if (contact.email) {
+                <a class="contact-method" [href]="'mailto:' + contact.email"><span class="contact-method-icon">✉</span><span><small>EMAIL</small><strong>{{ contact.email }}</strong></span><b aria-hidden="true">↗</b></a>
+              } @else {
+                <div class="contact-method"><span class="contact-method-icon">✉</span><span><small>EMAIL</small><strong class="contact-unset">Add your email in src/app/app.ts</strong></span></div>
+              }
+              @if (contact.phone) {
+                <a class="contact-method" [href]="'tel:' + contact.phone"><span class="contact-method-icon">⌕</span><span><small>PHONE</small><strong>{{ contact.phone }}</strong></span><b aria-hidden="true">↗</b></a>
+              } @else {
+                <div class="contact-method"><span class="contact-method-icon">☎</span><span><small>PHONE</small><strong class="contact-unset">Add your phone in src/app/app.ts</strong></span></div>
+              }
+              <div class="contact-method"><span class="contact-method-icon">⌖</span><span><small>LOCATION</small><strong>Pune</strong></span></div>
+              @if (contact.linkedin) {
+                <a class="contact-method" [href]="contact.linkedin" target="_blank" rel="noreferrer"><span class="contact-method-icon">in</span><span><small>LINKEDIN</small><strong>Connect with me</strong></span><b aria-hidden="true">↗</b></a>
+              }
+              @if (contact.github) {
+                <a class="contact-method" [href]="contact.github" target="_blank" rel="noreferrer"><span class="contact-method-icon">GH</span><span><small>GITHUB</small><strong>View my profile</strong></span><b aria-hidden="true">↗</b></a>
+              } @else {
+                <div class="contact-method" aria-label="GitHub profile coming soon"><span class="contact-method-icon" aria-hidden="true">GH</span><span><small>GITHUB</small><strong class="contact-unset">Profile coming soon</strong></span></div>
+              }
+              @if (contact.resume) {
+                <a class="contact-method" [href]="contact.resume" download><span class="contact-method-icon">↓</span><span><small>RESUME</small><strong>Download my resume</strong></span><b aria-hidden="true">↗</b></a>
+              } @else {
+                <div class="contact-method"><span class="contact-method-icon">↓</span><span><small>RESUME</small><strong class="contact-unset">Add PDF to public/assets</strong></span></div>
+              }
+            </div>
+          </div>
+
+          <form class="contact-form" (ngSubmit)="submitContactForm(contactForm)" #contactForm="ngForm" novalidate>
+            <div class="form-heading"><span class="form-heading-icon">✉</span><div><h3>Send a message</h3><p>I'd love to hear from you.</p></div></div>
+            <div class="form-row">
+              <label for="contact-name">Your Name</label>
+              <input id="contact-name" name="name" type="text" [(ngModel)]="contactName" #nameModel="ngModel" [attr.aria-invalid]="nameModel.invalid && (nameModel.touched || contactSubmitted) ? 'true' : null" [attr.aria-describedby]="nameModel.invalid && (nameModel.touched || contactSubmitted) ? 'name-error' : null" required autocomplete="name" placeholder="Jane Smith" />
+              @if (nameModel.invalid && (nameModel.touched || contactSubmitted)) {
+                <span class="field-error" id="name-error">Please enter your name.</span>
+              }
+            </div>
+            <div class="form-row">
+              <label for="contact-email">Your Email</label>
+              <input id="contact-email" name="email" type="email" [(ngModel)]="contactEmail" #emailModel="ngModel" [attr.aria-invalid]="emailModel.invalid && (emailModel.touched || contactSubmitted) ? 'true' : null" [attr.aria-describedby]="emailModel.invalid && (emailModel.touched || contactSubmitted) ? 'email-error' : null" required email autocomplete="email" placeholder="jane@example.com" />
+              @if (emailModel.invalid && (emailModel.touched || contactSubmitted)) {
+                <span class="field-error" id="email-error">{{ emailModel.errors?.['required'] ? 'Please enter your email address.' : 'Please enter a valid email address.' }}</span>
+              }
+            </div>
+            <div class="form-row">
+              <label for="contact-subject">Subject</label>
+              <input id="contact-subject" name="subject" type="text" [(ngModel)]="contactSubject" #subjectModel="ngModel" [attr.aria-invalid]="subjectModel.invalid && (subjectModel.touched || contactSubmitted) ? 'true' : null" [attr.aria-describedby]="subjectModel.invalid && (subjectModel.touched || contactSubmitted) ? 'subject-error' : null" required placeholder="What would you like to discuss?" />
+              @if (subjectModel.invalid && (subjectModel.touched || contactSubmitted)) {
+                <span class="field-error" id="subject-error">Please add a subject.</span>
+              }
+            </div>
+            <div class="form-row">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" [(ngModel)]="contactMessage" #messageModel="ngModel" [attr.aria-invalid]="messageModel.invalid && (messageModel.touched || contactSubmitted) ? 'true' : null" [attr.aria-describedby]="messageModel.invalid && (messageModel.touched || contactSubmitted) ? 'message-error' : null" required rows="4" placeholder="Tell me a little about it..."></textarea>
+              @if (messageModel.invalid && (messageModel.touched || contactSubmitted)) {
+                <span class="field-error" id="message-error">Please write a message.</span>
+              }
+            </div>
+            <button class="button form-submit" type="submit" [disabled]="openingEmail">
+              {{ openingEmail ? 'Opening email app...' : 'Send Message' }} <span aria-hidden="true">→</span>
+            </button>
+            @if (formFeedback) {
+              <p class="form-feedback" [class.form-error]="formFeedbackIsError" [attr.role]="formFeedbackIsError ? 'alert' : 'status'" aria-live="polite">{{ formFeedback }}</p>
+            }
+            <p class="form-note">This form uses your configured email app. Messages are not sent or stored by this website.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-width">
+      <div class="footer-main">
+        <a class="brand footer-brand" href="#home" aria-label="Pravin Gavali, back to home">
+          <span class="brand-mark">PG</span>
+          <span class="brand-copy"><strong>Pravin Gavali</strong><span>.NET FULL STACK DEVELOPER</span></span>
+        </a>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          @for (item of navItems; track item.id) {
+            <a [href]="'#' + item.id">{{ item.label }}</a>
+          }
+        </nav>
+        <div class="footer-socials" aria-label="Social links">
+          @if (contact.linkedin) { <a [href]="contact.linkedin" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a> }
+          @if (contact.github) { <a [href]="contact.github" target="_blank" rel="noreferrer" aria-label="GitHub">GH</a> }
+          @else { <span class="social-placeholder" role="link" aria-disabled="true" aria-label="GitHub profile coming soon" title="GitHub profile coming soon">GH</span> }
+          @if (contact.email) { <a [href]="'mailto:' + contact.email" aria-label="Email">✉</a> }
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© {{ currentYear }} Pravin Gavali. All rights reserved.</p>
+        <button class="back-to-top" type="button" (click)="scrollToTop()">Back to Top <span aria-hidden="true">↑</span></button>
+      </div>
+    </div>
+  </footer>
+
+  <dialog #projectDialog class="project-dialog" aria-labelledby="project-dialog-title" (click)="closeProjectFromBackdrop($event)" (close)="selectedProject = undefined">
+    @if (selectedProject; as project) {
+      <div class="dialog-content">
+        <div class="dialog-topline"><span class="project-category dialog-category">{{ project.category }}</span><button class="dialog-close" type="button" aria-label="Close project details" (click)="closeProject()">×</button></div>
+        <p class="eyebrow">PROJECT OVERVIEW</p>
+        <h2 id="project-dialog-title">{{ project.title }}</h2>
+        <dl class="dialog-project-meta">
+          <div><dt>My role</dt><dd>{{ project.role }}</dd></div>
+          <div><dt>Organization</dt><dd>{{ project.company }}</dd></div>
+          <div><dt>Period</dt><dd>{{ project.period }}</dd></div>
+        </dl>
+        <section class="dialog-section" aria-label="About the project">
+          <h3>About the project</h3>
+          @for (paragraph of project.overview; track paragraph) {
+            <p class="dialog-description">{{ paragraph }}</p>
+          }
+        </section>
+        <section class="dialog-section" aria-label="Key features and modules">
+          <h3>Key features &amp; modules</h3>
+          <dl class="dialog-features">
+            @for (feature of project.features; track feature.title) {
+              <div><dt>{{ feature.title }}</dt><dd>{{ feature.description }}</dd></div>
+            }
+          </dl>
+        </section>
+        <section class="dialog-section" aria-label="Technology stack">
+          <h3>Technology stack</h3>
+          <div class="dialog-tech-stack">
+            @for (group of project.technologyGroups; track group.area) {
+              <div>
+                <h4>{{ group.area }}</h4>
+                <div class="skill-tags">
+                  @for (technology of group.technologies; track technology) {
+                    <span class="technology-tag">{{ technology }}</span>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+        <section class="dialog-section" aria-label="My responsibilities and contributions">
+          <h3>My responsibilities &amp; contributions</h3>
+          <ul class="dialog-highlights">
+            @for (responsibility of project.responsibilities; track responsibility) {
+              <li>{{ responsibility }}</li>
+            }
+          </ul>
+        </section>
+        <div class="dialog-footer">
+          <p class="dialog-note">Project details are limited to information suitable for a public portfolio. No client or patient data is included.</p>
+          <button class="button dialog-done" type="button" (click)="closeProject()">Close details</button>
+        </div>
+      </div>
+    }
+  </dialog>
+</div>
