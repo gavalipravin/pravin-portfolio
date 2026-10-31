@@ -110,7 +110,7 @@
             @if (contact.github) {
               <a class="social-link" [href]="contact.github" target="_blank" rel="noreferrer" aria-label="GitHub">GH</a>
             } @else {
-              <span class="social-link social-placeholder" role="link" aria-disabled="true" aria-label="GitHub profile coming soon" title="GitHub profile coming soon">GH</span>
+              <span class="social-link social-placeholder" role="link" aria-disabled="true" aria-label="GitHub">GH</span>
             }
             @if (contact.email) {
               <a class="social-link" [href]="'mailto:' + contact.email" aria-label="Email">✉</a>
@@ -172,7 +172,7 @@
             <div class="card-icon">✦</div>
             <h3>Who I Am</h3>
             <p>
-              I'm a .NET Full Stack Developer with 4+ years of experience building, enhancing, and
+              I'm a .NET Full Stack Developer with {{ experienceDuration }} of experience building, enhancing, and
               maintaining enterprise web applications. I work across the full development
               lifecycle—from understanding business requirements and developing APIs to integrating
               databases, building user interfaces, and troubleshooting production issues.
@@ -433,7 +433,12 @@
                 <div class="contact-method"><span class="contact-method-icon">✉</span><span><small>EMAIL</small><strong class="contact-unset">Add your email in src/app/app.ts</strong></span></div>
               }
               @if (contact.phone) {
-                <a class="contact-method" [href]="'tel:' + contact.phone"><span class="contact-method-icon">⌕</span><span><small>PHONE</small><strong>{{ contact.phone }}</strong></span><b aria-hidden="true">↗</b></a>
+                <a class="contact-method" [href]="'tel:' + contact.phone">
+                  <span class="contact-method-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1Z"></path></svg>
+                  </span>
+                  <span><small>PHONE</small><strong>{{ contact.phone }}</strong></span><b aria-hidden="true">↗</b>
+                </a>
               } @else {
                 <div class="contact-method"><span class="contact-method-icon">☎</span><span><small>PHONE</small><strong class="contact-unset">Add your phone in src/app/app.ts</strong></span></div>
               }
@@ -444,7 +449,7 @@
               @if (contact.github) {
                 <a class="contact-method" [href]="contact.github" target="_blank" rel="noreferrer"><span class="contact-method-icon">GH</span><span><small>GITHUB</small><strong>View my profile</strong></span><b aria-hidden="true">↗</b></a>
               } @else {
-                <div class="contact-method" aria-label="GitHub profile coming soon"><span class="contact-method-icon" aria-hidden="true">GH</span><span><small>GITHUB</small><strong class="contact-unset">Profile coming soon</strong></span></div>
+                <div class="contact-method" aria-label="GitHub"><span class="contact-method-icon" aria-hidden="true">GH</span><span><small>GITHUB</small></span></div>
               }
               @if (contact.resume) {
                 <a class="contact-method" [href]="contact.resume" download><span class="contact-method-icon">↓</span><span><small>RESUME</small><strong>Download my resume</strong></span><b aria-hidden="true">↗</b></a>
@@ -512,7 +517,7 @@
         <div class="footer-socials" aria-label="Social links">
           @if (contact.linkedin) { <a [href]="contact.linkedin" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a> }
           @if (contact.github) { <a [href]="contact.github" target="_blank" rel="noreferrer" aria-label="GitHub">GH</a> }
-          @else { <span class="social-placeholder" role="link" aria-disabled="true" aria-label="GitHub profile coming soon" title="GitHub profile coming soon">GH</span> }
+          @else { <span class="social-placeholder" role="link" aria-disabled="true" aria-label="GitHub">GH</span> }
           @if (contact.email) { <a [href]="'mailto:' + contact.email" aria-label="Email">✉</a> }
         </div>
       </div>
